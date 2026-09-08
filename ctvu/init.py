@@ -11,4 +11,4 @@ model = {
 routes = {
 	"/_vu": "_vu.py"
 }
-requires = ["virtyou/ctone"]
+requires = ["ctone"]
