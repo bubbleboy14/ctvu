@@ -77,6 +77,20 @@ vu.build.furn = {
 		 	vb.furn.fznsel(scr)
 		 ];
 	},
+	mirror: function(mir) {
+		var vbc = vu.build.core;
+		// no vbc.materials() here - mir.thring.material is a ShaderMaterial (Reflector), so the
+		// generic specular/shininess controls don't apply, and color/opacity there persist via
+		// vu.storage.setMaterial() (part.material column) while Mirror reads opts.color/opacity
+		// directly - wiring that up correctly needs its own control, not this shared one. Frame
+		// texture (opts.frame) is similarly left out for now: it's a keyless child part, so
+		// vbc.txupper() can't persist against it as-is.
+		return [
+			vbc.unfurn(mir),
+			vbc.name(mir),
+			vbc.scale(mir)
+		];
+	},
 	furnishing: function(furn) {
 		var vbc = vu.build.core, d = [
 			vbc.unfurn(furn),
@@ -283,6 +297,13 @@ vu.build.furn = {
 			};
 			eopts.opts.name = kind + Math.floor(Math.random() * 1000);
 			eopts.opts.kind = kind; // no base necessary...
+		} else if (kind == "mirror") {
+			eopts.opts = {
+				thing: "Mirror", // unlike poster/screen/stream, mirror is a real class, not a plain Thing
+				wall: 0
+			};
+			eopts.opts.name = kind + Math.floor(Math.random() * 1000);
+			eopts.opts.kind = kind;
 		} else if (kind == "portal") {
 			eopts.opts = { wall: 0 };
 			if (!thing.key)
@@ -319,7 +340,7 @@ vu.build.furn = {
 			return bf.booktions(cb);
 		if (kind == "carpentry")
 			return bf.carp(cb);
-		if (kind == "screen" || kind == "stream" || kind == "poster")
+		if (kind == "screen" || kind == "stream" || kind == "poster" || kind == "mirror")
 			return bf.part(null, kind, cb);
 		var options = Object.values(vu.storage.get(kind) || {});
 		if (kind == "portal") {
@@ -345,7 +366,7 @@ vu.build.furn = {
 			CT.dom.setContent(selz.furnishings, [
 				CT.dom.button("add", function() {
 					CT.modal.choice({
-						data: ["furnishing", "carpentry", "poster", "portal", "screen", "stream", "elemental", "speaker", "swarm", "book", "building"],
+						data: ["furnishing", "carpentry", "mirror", "poster", "portal", "screen", "stream", "elemental", "speaker", "swarm", "book", "building"],
 						cb: bf.selfurn
 					});
 				}, "up20 right"),
