@@ -18,14 +18,14 @@ vu.build.furn = {
 		vu.storage.setOpts(poster.opts.key, upz);
 	},
 	poster: function(poster) {
-		 var vb = vu.build, vbc = vb.core;
-		 return [
-		 	vbc.unfurn(poster),
-		 	vbc.name(poster),
-		 	vbc.scale(poster),
-		 	vbc.materials(poster),
+		var vb = vu.build, vbc = vb.core;
+		return [
+			vbc.unfurn(poster),
+			vbc.name(poster),
+			vbc.scale(poster),
+			vbc.materials(poster),
 			vbc.txupper(poster, img => vb.furn.resizePoster(poster, img))
-		 ];
+		];
 	},
 	vidsel: function(scr) {
 		var opts = CT.data.get(scr.opts.key);
@@ -58,24 +58,24 @@ vu.build.furn = {
 		], "topbordered padded margined");
 	},
 	screen: function(scr) {
-		 var vb = vu.build, vbc = vb.core;
-		 return [
-		 	vbc.unfurn(scr),
-		 	vbc.name(scr),
-		 	vbc.scale(scr),
-		 	vbc.materials(scr),
-		 	vb.furn.vidsel(scr)
-		 ];
+		var vb = vu.build, vbc = vb.core;
+		return [
+			vbc.unfurn(scr),
+			vbc.name(scr),
+			vbc.scale(scr),
+			vbc.materials(scr),
+			vb.furn.vidsel(scr)
+		];
 	},
 	stream: function(scr) {
-		 var vb = vu.build, vbc = vb.core;
-		 return [
-		 	vbc.unfurn(scr),
-		 	vbc.name(scr),
-		 	vbc.scale(scr),
-		 	vbc.materials(scr),
-		 	vb.furn.fznsel(scr)
-		 ];
+		var vb = vu.build, vbc = vb.core;
+		return [
+			vbc.unfurn(scr),
+			vbc.name(scr),
+			vbc.scale(scr),
+			vbc.materials(scr),
+			vb.furn.fznsel(scr)
+		];
 	},
 	mirror: function(mir) {
 		var vbc = vu.build.core;
